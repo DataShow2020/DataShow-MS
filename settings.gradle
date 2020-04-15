@@ -1,0 +1,11 @@
+rootProject.name = 'stack'
+
+include "stack-bn:bn-entity"
+include "stack-bn:bn-util"
+include "stack-bn:bn-dao"
+include "stack-bn:bn-api"
+include "stack-bn:bn-service"
+include "stack-bn:bn-service-impl"
+
+include "stack-global"
+include "stack-auth"

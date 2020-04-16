@@ -1,1 +1,0 @@
-alter table vehicle drop vehicle_number;

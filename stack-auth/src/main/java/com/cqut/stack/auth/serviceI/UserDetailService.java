@@ -13,8 +13,4 @@ public interface UserDetailService {
     Boolean register(User user);
 
     Boolean checkAccount(User user);
-
-    List<Permission> selectPermissionListByUser(String account);
-
-    String queryRoleInfo(String account);
 }

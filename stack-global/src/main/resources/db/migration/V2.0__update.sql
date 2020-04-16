@@ -1,1 +1,0 @@
-alter table order_message add distribution_id varchar(50);

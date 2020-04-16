@@ -24,7 +24,8 @@ public class UserDetailServiceImpl implements UserDetailService{
         if(userMapper.checkAccount(user.getAccount())) return new Boolean(false);
         user.setUserId(UUID.randomUUID().toString());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        return userMapper.insertUser(user);
+
+        return userMapper.insertUser(user) && userMapper.insertUserRoleRelation(user.getUserId());
     }
 
     @Override
@@ -32,28 +33,4 @@ public class UserDetailServiceImpl implements UserDetailService{
         return userMapper.checkAccount(user.getAccount());
     }
 
-    /**
-     * 根据用户信息返回菜单路由
-     * @param account
-     * @return
-     */
-    @Override
-    public List<Permission> selectPermissionListByUser(String account) {
-        Boolean result = userMapper.checkAccount(account);
-
-        if(result == false){
-            return null;
-        }
-
-        List<String> permissionIds = userMapper.selectPermissionId(account);
-        if(permissionIds.size() == 0){
-            return null;
-        }
-        return userMapper.selectPermissionListByUser(permissionIds);
-    }
-
-    @Override
-    public String queryRoleInfo(String account){
-        return userMapper.findUserByAccount(account).getRole();
-    }
 }

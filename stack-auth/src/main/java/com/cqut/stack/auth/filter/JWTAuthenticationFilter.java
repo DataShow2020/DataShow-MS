@@ -42,9 +42,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginUser.getAccount(), loginUser.getPassWord(), new ArrayList<>())
-        );
+        UsernamePasswordAuthenticationToken upat =  new UsernamePasswordAuthenticationToken(loginUser.getAccount(), loginUser.getPassWord(), new ArrayList<>());
+        Authentication ac = authenticationManager.authenticate(upat);
+        return ac;
     }
 
     //登录成功后设置token

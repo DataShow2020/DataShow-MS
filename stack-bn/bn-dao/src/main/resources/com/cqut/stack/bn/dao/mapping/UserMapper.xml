@@ -6,24 +6,18 @@
     <result column="account" property="account" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
-      <result column="role_name" property="role" jdbcType="VARCHAR"/>
   </resultMap>
 
-  <select id="findUserByAccount" resultMap="BaseResultMap" parameterType="java.lang.String" >
-      SELECT
+    <select id="findUserByAccount" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  SELECT
             sys_user.user_id,
             account,
             user_name,
-            `password`,
-            role_name
+            `password`
         FROM
-            sys_user,
-            sys_role,
-            sys_user_role
+            sys_user
         WHERE
-            sys_user.user_id = sys_user_role.user_id
-        AND sys_role.role_id = sys_user_role.role_id
-        AND account = #{account,jdbcType=VARCHAR}
+             account = #{account,jdbcType=VARCHAR}
   </select>
 
   <select id="checkAccount" resultType="java.lang.Boolean" parameterType="java.lang.String">
@@ -43,15 +37,6 @@
       `password`
     )
     VALUES(#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
-  </insert>
-    <!-- 插入用户角色关联表 -->
-    <insert id="insertUserRoleRelation" parameterType="java.lang.String">
-    INSERT INTO `sys_user_role` (
-      `user_role_relation_id`,
-      `user_id`,
-      `role_id`
-    )
-    VALUES(#{UserRoleRelationId,jdbcType=VARCHAR}, #{UserRoleRelationId,jdbcType=VARCHAR}, 1)
   </insert>
 
 </mapper>

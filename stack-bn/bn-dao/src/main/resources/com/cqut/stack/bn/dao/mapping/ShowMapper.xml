@@ -2,22 +2,80 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cqut.stack.bn.dao.mapper.ShowMapper">
     <!-- 获取训练集数据 -->
-    <select id="getShowData" resultType="com.cqut.stack.bn.entity.entity.Show" parameterType="com.cqut.stack.bn.entity.dto.show.ShowInputDTO">
+    <select id="getTrainData" resultType="com.cqut.stack.bn.entity.entity.Train" parameterType="com.cqut.stack.bn.entity.dto.train.TrainInputDTO">
         select
         ID id,
-        age,
-        Gender gender,
-        Education education,
-        QueryList queryList
-        from traindata
+        SUBSTRING_INDEX(words,
+        ' ',
+        10) as words
+        from KeyProbs
         where
-        (ISNULL(#{age}) || age LIKE CONCAT('%', #{age}, '%'))
-        <if test="gender != null and gender != ''">
-            and Gender = #{gender,jdbcType=INTEGER}
+        (ISNULL(#{id}) || age LIKE CONCAT('%', #{id}, '%'))
+        <if test="words != null and words != ''">
+            and words LIKE CONCAT('%', #{words}, '%')
         </if>
-        <if test="education != null and education != ''">
-            and Education = #{education,jdbcType=INTEGER}
-        </if>
+    </select>
+    <!-- 获取训练结果 -->
+    <select id="generateModel" resultType="com.cqut.stack.bn.entity.entity.Show" parameterType="java.lang.String">
+        SELECT
+	(
+		CASE age
+		WHEN 0 THEN
+			'未知年龄'
+		WHEN 1 THEN
+			'0-18岁'
+		WHEN 2 THEN
+			'19-23岁'
+		WHEN 3 THEN
+			'24-30岁'
+		WHEN 4 THEN
+			'31-40岁'
+		WHEN 5 THEN
+			'41-50岁'
+		WHEN 6 THEN
+			'51-999岁'
+		ELSE
+			'null'
+		END
+	) AS age,
+	(
+		CASE Gender
+		WHEN 0 THEN
+			'未知'
+		WHEN 1 THEN
+			'男性'
+		WHEN 2 THEN
+			'女性'
+		ELSE
+			'null'
+		END
+	) AS gender,
+	(
+		CASE Education
+		WHEN 0 THEN
+			'未知学历'
+		WHEN 1 THEN
+			'博士'
+		WHEN 2 THEN
+			'硕士'
+	WHEN 3 THEN
+			'大学生'
+	WHEN 4 THEN
+			'高中'
+	WHEN 5 THEN
+			'初中'
+	WHEN 6 THEN
+			'小学'
+		ELSE
+			'null'
+		END
+	) AS education,
+	prob,
+	topic
+FROM
+	keyprobs
+WHERE
+	ID = #{id,jdbcType=VARCHAR}
     </select>
     <!--get total info amount-->
 <!--    <select id="selectTotalCount" resultType="java.lang.Integer" parameterType="com.cqut.stack.bn.entity.dto.DistributionA01DTO">-->

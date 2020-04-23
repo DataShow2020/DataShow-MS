@@ -1,54 +1,64 @@
 package com.cqut.stack.bn.entity.entity;
 
+import java.util.List;
+
 public class Show {
-    private String id;
+    private String age;
 
-    private int age;
+    private String gender;
 
-    private int gender;
+    private String education;
 
-    private int education;
+    private String topic;
 
-    private String queryList;
+    private String prob;
 
-    public String getId() {
-        return id;
+    private List<List<String>> probs;
+
+    public String getProb() {
+        return prob;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setProb(String prob) {
+        this.prob = prob;
+    }
+    public String getTopic() {
+        return topic;
     }
 
-    public int getAge() {
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
-    public int getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
-    public int getEducation() {
+    public String getEducation() {
         return education;
     }
 
-    public void setEducation(int education) {
+    public void setEducation(String education) {
         this.education = education;
     }
 
-    public String getQueryList() {
-        return queryList;
+    public List<List<String>> getProbs() {
+        return probs;
     }
 
-    public void setQueryList(String queryList) {
-        this.queryList = queryList;
+    public void setProbs(List<List<String>> probs) {
+        this.probs = probs;
     }
 
 }

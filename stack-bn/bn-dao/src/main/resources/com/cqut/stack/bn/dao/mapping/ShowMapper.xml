@@ -8,7 +8,7 @@
         SUBSTRING_INDEX(words,
         ' ',
         10) as words
-        from KeyProbs
+        from keyprobs
         where
         (ISNULL(#{id}) || age LIKE CONCAT('%', #{id}, '%'))
         <if test="words != null and words != ''">

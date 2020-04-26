@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqut.stack.bn.dao.mapper.TotalCountMapper">
+    <select id="getTotalCountGender" resultType="com.cqut.stack.bn.entity.dto.total.AttributeAndCount">
+        SELECT
+            CASE gender
+        WHEN 0 THEN
+            '未知'
+        WHEN 1 THEN
+            '男'
+        WHEN 2 THEN
+            '女'
+        END as name,
+         count(gender) as value
+        FROM
+            keyprobs
+        WHERE gender != 0
+        GROUP BY
+            Gender
+    </select>
+
+    <select id="getTotalCountAge" resultType="com.cqut.stack.bn.entity.dto.total.AttributeAndCount">
+        SELECT
+            CASE age
+        WHEN 0 THEN
+            '未知年龄'
+        WHEN 1 THEN
+            '0-18岁'
+        WHEN 2 THEN
+            '19-23岁'
+        WHEN 3 THEN
+            '24-30岁'
+        WHEN 4 THEN
+            '31-40岁'
+        WHEN 5 THEN
+            '41-50岁'
+        WHEN 6 THEN
+            '51-99岁'
+        ELSE
+            'null'
+        END AS NAME,
+         count(age) AS
+        VALUE
+
+        FROM
+            keyprobs
+        WHERE
+            age != 0
+        GROUP BY
+            age
+    </select>
+
+    <select id="getTotalCountEducation" resultType="com.cqut.stack.bn.entity.dto.total.AttributeAndCount">
+        SELECT
+            CASE Education
+        WHEN 0 THEN
+            '未知'
+        WHEN 1 THEN
+            '博士'
+        WHEN 2 THEN
+            '硕士'
+        WHEN 3 THEN
+            '大学生'
+        WHEN 4 THEN
+            '高中'
+        WHEN 5 THEN
+            '初中'
+        WHEN 6 THEN
+            '小学'
+        ELSE
+            'null'
+        END as name,
+         count(Education) as value
+        FROM
+            keyprobs
+        WHERE
+            Education != 0
+        GROUP BY
+            Education
+    </select>
+
+</mapper>

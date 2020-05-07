@@ -1,6 +1,5 @@
 package com.cqut.stack.bn.api.controller;
 
-import com.cqut.stack.bn.entity.dto.show.ShowInputDTO;
 import com.cqut.stack.bn.entity.dto.train.TrainInputDTO;
 import com.cqut.stack.bn.entity.entity.Show;
 import com.cqut.stack.bn.entity.entity.Train;
@@ -47,5 +46,10 @@ public class ShowController {
         JSONResult<Show> jsonResult = new JSONResult<>();
         jsonResult.setData(showService.generateModel(id));
         return jsonResult;
+    }
+
+    @GetMapping("/getUserId")
+    public JSONResult getUserId(@RequestParam String userName){
+        return new JSONResult(showService.getUserId(userName));
     }
 }

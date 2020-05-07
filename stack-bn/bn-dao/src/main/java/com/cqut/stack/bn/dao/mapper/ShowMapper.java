@@ -15,4 +15,6 @@ public interface ShowMapper {
 
      /** 获取生成模型数据 */
      Show generateModel ( String id);
+
+     String getUserId(String userName);
 }

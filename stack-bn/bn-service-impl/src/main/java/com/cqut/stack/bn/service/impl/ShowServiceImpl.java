@@ -183,6 +183,10 @@ public class ShowServiceImpl implements ShowService {
         return null;
     }
 
+    public String getUserId(String userName){
+        return showMapper.getUserId(userName);
+    }
+
 
 
 

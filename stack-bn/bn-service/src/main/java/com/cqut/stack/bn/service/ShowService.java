@@ -14,4 +14,6 @@ public interface ShowService {
 
     /** 获取训练结果 */
     Show generateModel(String id);
+
+    String getUserId(String userName);
 }

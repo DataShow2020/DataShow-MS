@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ShowMapper {
      /** 获取训练集中的数据 */
-     
+
      List<Train> getTrainData(TrainInputDTO inputDTO);
 
      /** 获取生成模型数据 */

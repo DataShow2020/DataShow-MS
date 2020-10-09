@@ -1,6 +1,7 @@
 package com.cqut.stack.bn.api.controller;
 
 import com.cqut.stack.bn.entity.dto.train.TrainInputDTO;
+import com.cqut.stack.bn.entity.dto.train.UserInfoInputDTO;
 import com.cqut.stack.bn.entity.entity.Show;
 import com.cqut.stack.bn.entity.entity.Train;
 import com.cqut.stack.bn.entity.global.JSONResult;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+
 import java.util.List;
+
+
 
 @RestController
 @RequestMapping("/api")
@@ -32,7 +36,7 @@ public class ShowController {
         PageHelper.startPage((inputDTO.getPage()-1)*inputDTO.getPageSize(),inputDTO.getPageSize());
         JSONResult<List<Train>> jsonResult = new JSONResult<>();
         jsonResult.setData(showService.getTrainData(inputDTO));
-        jsonResult.setTotalCount(10000);
+        jsonResult.setTotalCount(1000);
         return jsonResult;
     }
 
@@ -52,4 +56,16 @@ public class ShowController {
     public JSONResult getUserId(@RequestParam String userName){
         return new JSONResult(showService.getUserId(userName));
     }
+
+
+    /**
+     * Java client远程开启server的python深度学习模型的程序，然后进行socket通信
+     * */
+    @GetMapping("/runPySocket")
+    public JSONResult runPySocket(@Valid UserInfoInputDTO userInfoInputDTO) {
+        JSONResult<Show> jsonResult = new JSONResult<>();
+        jsonResult.setData(showService.saveModel(userInfoInputDTO));
+        return jsonResult;
+    }
+
 }

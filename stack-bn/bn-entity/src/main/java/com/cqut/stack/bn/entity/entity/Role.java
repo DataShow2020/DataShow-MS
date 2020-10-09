@@ -1,9 +1,23 @@
 package com.cqut.stack.bn.entity.entity;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.liquibase.LiquibaseDataSource;
+
+import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.Date;
 
 public class Role implements Serializable {
+
+
+    //自动装配的方式
+    @Autowired(required = false)//默认按照 bytype形式去找组件注册。如果找到多个，就按照名称来区分
+    @Qualifier
+    private Permission permission;
+
+    @Resource
+    private Permission permission2;
     private String roleId;
 
     private String roleName;

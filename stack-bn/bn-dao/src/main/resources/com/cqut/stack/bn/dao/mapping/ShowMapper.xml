@@ -21,7 +21,7 @@
 	(
 		CASE age
 		WHEN 0 THEN
-			'未知年龄'
+			'0-18岁'
 		WHEN 1 THEN
 			'0-18岁'
 		WHEN 2 THEN
@@ -41,7 +41,7 @@
 	(
 		CASE Gender
 		WHEN 0 THEN
-			'未知'
+			'男性'
 		WHEN 1 THEN
 			'男性'
 		WHEN 2 THEN
@@ -53,7 +53,7 @@
 	(
 		CASE Education
 		WHEN 0 THEN
-			'未知学历'
+			'高中'
 		WHEN 1 THEN
 			'博士'
 		WHEN 2 THEN
@@ -77,15 +77,22 @@ FROM
 WHERE
 	ID = #{id,jdbcType=VARCHAR}
     </select>
-    <!--get total info amount-->
-<!--    <select id="selectTotalCount" resultType="java.lang.Integer" parameterType="com.cqut.stack.bn.entity.dto.DistributionA01DTO">-->
-<!--        select count(*)-->
-<!--        FROM distribution-->
-<!--        WHERE-->
-<!--	    (ISNULL(#{status}) || distribution.status LIKE CONCAT('%', #{status}, '%'))-->
-<!--	    AND-->
-<!--	    distribution.is_deleted != 1-->
-<!--    </select>-->
+	<!-- 保存最终结果 -->
+    <insert id="saveModel" parameterType="com.cqut.stack.bn.entity.entity.Show">
+	   INSERT INTO keyprobs ( ID, age, Gender, Education, words, prob)
+                       VALUES
+                       ( #{id}, #{age}, #{gender}, #{education}, #{words}, #{prob} );
+    </insert>
+	<!-- 更新训练结果 -->
+	<update id="updateModel" parameterType="com.cqut.stack.bn.entity.entity.Show">
+	  UPDATE keyprobs
+	  SET age = #{age},
+	      Gender = #{gender},
+	      Education = #{education},
+	      words = #{words},
+	      prob = #{prob}
+	  WHERE ID = #{id}
+    </update>
 
 	<select id="getUserId" parameterType="java.lang.String" resultType="java.lang.String">
 		SELECT

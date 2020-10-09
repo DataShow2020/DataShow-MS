@@ -3,6 +3,10 @@ package com.cqut.stack.bn.entity.entity;
 import java.util.List;
 
 public class Show {
+
+
+    private String id;
+
     private String age;
 
     private String gender;
@@ -15,6 +19,25 @@ public class Show {
 
     private List<List<String>> probs;
 
+    private String words;
+
+    public String getWords() {
+        return words;
+    }
+
+    public void setWords(String words) {
+        this.words = words;
+    }
+
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
     public String getProb() {
         return prob;
     }

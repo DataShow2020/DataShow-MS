@@ -1,18 +1,17 @@
 package com.cqut.stack.bn.api;
 
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
-
 import javax.servlet.MultipartConfigElement;
+
+
 
 @SpringBootApplication(scanBasePackages = {"com.cqut.stack.bn","com.cqut.stack.auth"},exclude = {
 })
 
 public class StackApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(StackApplication.class, args);
     }

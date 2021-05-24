@@ -46,8 +46,6 @@ public class JavaCallPython {
             // 读取内容
             while((tmp=br.readLine())!=null)
                 sb.append(tmp).append('\n');
-            // 解析结果
-//            JSONArray res = JSON.parseArray(sb.toString());
             return sb;
         } catch (IOException e) {
 //            System.out.println("1111");

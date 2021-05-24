@@ -17,8 +17,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 /**
- * 杨强
- * 2018/10/10
  * 该类是Security的总体配置，设置拦截器，和要拦截api接口
  */
 @EnableWebSecurity
@@ -46,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
                 // 设置需要身份认证的接口
-                //.antMatchers("/api/**").authenticated()
+//                .antMatchers("/api/**").authenticated()
                 // 其余放行，可以不设置
                 .anyRequest().permitAll()
                 .and()
@@ -55,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //设置接口身份认证拦截器
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 // 不需要session
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
     }
 
     @Bean

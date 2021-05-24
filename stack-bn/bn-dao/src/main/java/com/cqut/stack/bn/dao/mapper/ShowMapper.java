@@ -12,7 +12,7 @@ import java.util.List;
 public interface ShowMapper {
      /** 获取训练集中的数据 */
 
-     List<Train> getTrainData(TrainInputDTO inputDTO);
+     List<Train> getTrainData();
 
      /** 获取生成模型数据 */
      Show generateModel ( String id);
@@ -23,4 +23,6 @@ public interface ShowMapper {
      boolean updateModel(Show show);
 
      String getUserId(String userName);
+
+     List<String> getProjectItems();
 }

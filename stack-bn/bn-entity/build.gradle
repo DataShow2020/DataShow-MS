@@ -14,8 +14,7 @@ repositories {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
-    compile group: 'org.springframework.boot', name : 'spring-boot-starter-web', version: '1.5.12.RELEASE'
+    compileOnly 'org.projectlombok:lombok:1.18.8'
     //compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '1.5.12.RELEASE'
     compile group: 'com.auth0', name: 'java-jwt', version: '3.3.0'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '1.5.12.RELEASE'

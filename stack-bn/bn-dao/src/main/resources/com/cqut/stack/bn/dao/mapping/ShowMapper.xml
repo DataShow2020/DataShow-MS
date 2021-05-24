@@ -2,18 +2,43 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cqut.stack.bn.dao.mapper.ShowMapper">
     <!-- 获取训练集数据 -->
-    <select id="getTrainData" resultType="com.cqut.stack.bn.entity.entity.Train" parameterType="com.cqut.stack.bn.entity.dto.train.TrainInputDTO">
+    <select id="getTrainData" resultType="com.cqut.stack.bn.entity.entity.Train" >
         select
-        ID id,
-        SUBSTRING_INDEX(words,
-        ' ',
-        10) as words
-        from keyprobs
+        id,
+		proj_name projName,
+		proj_code projCode,
+		new_proj_item projItem,
+		call_unit callUnit,
+		region,
+		ancm_time ancmTime,
+		actual_price actualPrice,
+		call_unit_address callUnitAddress,
+		proj_rel_p projRelP,
+		proj_rel_m projRelM,
+		agent_unit_name agentUnitName,
+		agent_unit_address agentUnitAddress,
+		agent_unit_p agentUnitP,
+		agent_unit_m agentUnitM,
+		purchase_m purchaseM ,
+		sourse_url sourseUrl ,
+		bid_time bidTime,
+		provide_unit provideUnit,
+		provide_address provideAddress,
+		review_time reviewTime,
+		review_place reviewPlace,
+		pxy_fee_standard pxyFeeStandard,
+		pxy_fee pxyFee ,
+		title  ,
+		web_site webSite,
+		source_web_name sourceWebName
+        from win_bid_government
         where
-        (ISNULL(#{id}) || age LIKE CONCAT('%', #{id}, '%'))
-        <if test="words != null and words != ''">
-            and words LIKE CONCAT('%', #{words}, '%')
-        </if>
+		provide_unit = '万达信息股份有限公司'
+		limit 10
+<!--        (ISNULL(#{id}) || age LIKE CONCAT('%', #{id}, '%'))-->
+<!--		<if test="words != null and words != ''">-->
+<!--			and words LIKE CONCAT('%', #{words}, '%')-->
+<!--		</if>-->
     </select>
     <!-- 获取训练结果 -->
     <select id="generateModel" resultType="com.cqut.stack.bn.entity.entity.Show" parameterType="java.lang.String">
@@ -101,5 +126,11 @@ WHERE
 			sys_user
 		WHERE
 			user_name = #{userName}
+	</select>
+	<select id="getProjectItems" resultType="java.lang.String">
+	SELECT DISTINCT
+	proj_item
+    FROM
+	call_bid_government
 	</select>
 </mapper>

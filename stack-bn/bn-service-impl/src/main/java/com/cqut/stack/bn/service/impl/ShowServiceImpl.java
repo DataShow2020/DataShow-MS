@@ -1,23 +1,30 @@
 package com.cqut.stack.bn.service.impl;
 
+import com.cqut.stack.auth.jwt.JwtTool;
 import com.cqut.stack.bn.dao.mapper.ShowMapper;
 import com.cqut.stack.bn.entity.dto.train.TrainInputDTO;
 import com.cqut.stack.bn.entity.dto.train.UserInfoInputDTO;
+import com.cqut.stack.bn.entity.dto.user.LoginUser;
 import com.cqut.stack.bn.entity.entity.Show;
 import com.cqut.stack.bn.entity.entity.Train;
 import com.cqut.stack.bn.service.ShowService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.builder.ToStringExclude;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.*;
+
 @Service
 public class ShowServiceImpl implements ShowService {
     @Autowired
     private ShowMapper showMapper;
 
+    private JwtTool jwtTool;
     public ShowServiceImpl() {
         super();
     }
@@ -27,16 +34,16 @@ public class ShowServiceImpl implements ShowService {
      * @return
      */
     @Override
-    public List<Train> getTrainData(TrainInputDTO inputDTO){
-        List<Train> trainData = showMapper.getTrainData(inputDTO);
-        for(Train item :trainData){
-            String words = item.getWords();
-            if(words != null){
-                words = words.replaceAll("t|n|\\\\"," ").concat("……等等");
-                item.setWords(words);
-            }
-
-        }
+    public List<Train> getTrainData(){
+        List<Train> trainData = showMapper.getTrainData();
+//        for(Train item :trainData){
+//            String words = item.getWords();
+//            if(words != null){
+//                words = words.replaceAll("t|n|\\\\"," ").concat("……等等");
+//                item.setWords(words);
+//            }
+//
+//        }
 
         return trainData;
     }
@@ -105,7 +112,30 @@ public class ShowServiceImpl implements ShowService {
         return showMapper.getUserId(userName);
     }
 
+    public HashMap<String,Integer> test(HttpServletRequest request){
+        HashMap<String, Integer>hm = new HashMap<>();
+        for(String item : showMapper.getProjectItems()){
+            if(item != null){
+                String[] res = item.split("/");
+                    if(res.length == 1){
+                        hm.put(res[0],hm.getOrDefault(res[0],1)+1);
+                    }else {
+                        hm.put(res[0].concat("/").concat(res[1]),hm.getOrDefault(res[0].concat("/").concat(res[1]),1)+1);
+                    }
+            }
+        }
+        hm.entrySet().removeIf(item -> item.getValue() < 500);
+        return hm;
+    }
 
 
+    public LoginUser getLoginUserMessage(HttpServletRequest request){
+        try {
+            return new ObjectMapper().readValue(request.getInputStream(), LoginUser.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new LoginUser();
+    }
 
 }

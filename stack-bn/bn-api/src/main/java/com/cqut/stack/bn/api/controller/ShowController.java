@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import java.util.List;
@@ -26,16 +27,16 @@ public class ShowController {
     private ShowService showService;
 
     /**
-     * 获取训练数据信息
+     * 获取收藏数据信息
      * @param inputDTO
      * @return
      */
-    @GetMapping("/getShowData")
-    public JSONResult getShowData(@Valid TrainInputDTO inputDTO){
+    @GetMapping("/getData")
+    public JSONResult getShowData(){
         /** mapper接口被检测前使用，紧跟的第一个select方法会被分页 */
-        PageHelper.startPage((inputDTO.getPage()-1)*inputDTO.getPageSize(),inputDTO.getPageSize());
+//        PageHelper.startPage((inputDTO.getPage()-1)*inputDTO.getPageSize(),inputDTO.getPageSize());
         JSONResult<List<Train>> jsonResult = new JSONResult<>();
-        jsonResult.setData(showService.getTrainData(inputDTO));
+        jsonResult.setData(showService.getTrainData());
         jsonResult.setTotalCount(1000);
         return jsonResult;
     }
@@ -68,4 +69,10 @@ public class ShowController {
         return jsonResult;
     }
 
+    @GetMapping("/test")
+    public void test(HttpServletRequest request,HttpServletRequest response){
+//        JWTResult result = JWTUtils.checkToken(token);
+//        Long userId = result.getUserId();
+        showService.test(request);
+    }
 }
